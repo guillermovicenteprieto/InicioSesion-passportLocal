@@ -38,10 +38,6 @@ passport.use(new LocalStrategy(
       })
     }
 
-    // if (!usuario) {
-    //   console.log('Usuario no encontrado')
-    //   return done(null, false);
-    // }
     if (await verifyPassword(usuario, password)) {
       console.log('Contraseña inválida')
       return done(null, false);
@@ -52,37 +48,6 @@ passport.use(new LocalStrategy(
   }
 
 ));
-
-
-
-// passport.use(new LocalStrategy(
-//   async (username, password, done) => {
-//     const usuario = usuariosDB.find(usuario => username == username);
-//     console.log({ usuario })
-//     bcrypt.compare(password, usuario.password, (err, res) => {
-//       if (err) {
-//         console.log(err);
-//         return done(null, false, { message: 'Error al autenticar' });
-//       }
-//       if (res) {
-//         return done(null, usuario);
-//       }
-//     })
-
-//     if (!usuario) {
-//       console.log('Usuario no encontrado')
-//       return done(null, false);
-//     } else {
-//       if (usuario.password == password) {
-//         console.log('Usuario registrado')
-//         return done(null, usuario);
-//       } else {
-//         console.log('Contraseña incorrecta')
-//         return done(null, false);
-//       }
-//     }
-//   }
-// ));
 
 /*============================[Middlewares]============================*/
 
@@ -100,7 +65,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 60000,
+    maxAge: 600000,
   }
 }))
 
@@ -146,13 +111,11 @@ async function verifyPassword(usuario, password) {
           return false;
         }
       });
-
     } catch (error) {
       console.log(error)
     }
   }
 }
-
 
 /*=======================[Motor de Plantillas]=======================*/
 app.engine('hbs', handlebars.engine({
@@ -200,22 +163,10 @@ app.use(routerHandlebars)
 
 routerHandlebars
 
-  // .get('/productos', (req, res) => {
-  //   if (req.session.username) {
-  //     const nombre = req.session.username
-  //     res.render('faker', { listProducts, nombre })
-  //   } else {
-  //     res.redirect('/login')
-  //   }
-  // })
-
   .get('/productos', isAuth, (req, res) => {
     if (req.session.username) {
       const nombre = req.session.username
       const email = req.session.email
-      console.log(req.session.username)
-      console.log(req.session.email)
-      console.log(`detalle de ${usuariosDB}`)
       console.log({ nombre, email })
 
       res.render('faker', { listProducts, nombre, email })
@@ -239,7 +190,6 @@ routerHandlebars
   .post('/login', passport.authenticate('local', { failureRedirect: '/login' }), (req, res) => {
     const { username, email, password } = req.body;
     const usuario = usuariosDB.find(usuario => usuario.username == username);
-    console.log(`uuuuuuusuaaaaario ${usuariosDB[0].username} ${usuariosDB[0].email} ${usuariosDB[0].password} ${usuario}`)
     if (!usuario) {
       console.log('usuario no registrado');
       res.redirect('/login-error')

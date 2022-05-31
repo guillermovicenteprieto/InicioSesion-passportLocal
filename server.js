@@ -20,10 +20,6 @@ const listProducts = generateRandomProduct(5)
 /*============================[Base de Datos]============================*/
 const usuariosDB = []
 
-/*============================[Middlewares]============================*/
-
-
-
 /*==========================[Passport-local]==========================*/
 /*
 passport.use(new LocalStrategy(
@@ -49,9 +45,8 @@ passport.use(new LocalStrategy(
   */
 passport.use(new LocalStrategy(
   (username, password, done) => {
-    //Logica para validar si un usuario existe
     const usuario = usuariosDB.find(usuario => username == username);
-    console.log(`existeUsuario: ${usuario}`)
+    console.log(`usuario: ${usuario}`)
     // bcrypt.compare(password, existeUsuario.password, (err, res) => {
     //   if (err) {
     //     console.log(err);
@@ -66,6 +61,7 @@ passport.use(new LocalStrategy(
       console.log('Usuario no encontrado')
       return done(null, false);
     } else {
+      console.log(`usuario: ${usuario}`)
       if (usuario.password == password) {
         console.log('Usuario encontrado')
         return done(null, usuario);
