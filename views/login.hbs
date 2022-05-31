@@ -1,0 +1,95 @@
+<div class="container my-5">
+  <div class="jumbotron">
+    <h1>LOGIN</h1>
+
+    <div class="bg-warning">
+      <div class="p-2">
+      <form action="/login" method="POST">
+              <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input
+            type="username"
+            class="form-control"
+            id="username"
+            name="username"
+            placeholder="Ingrese su nombre"
+          />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            placeholder="Ingrese su email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            placeholder="Ingrese su password"
+          />
+        </div>
+        <button type="submit" class="btn btn-success mt-5">Login</button>
+      </form>
+
+      </div>
+    </div>
+    {{!-- <form
+      class="form bg-warning"
+      action="/login"
+      method="post"
+      role="form"
+      autocomplete="off"
+    >
+      <div class="form-group">
+        <input
+          id="nombre"
+          name="nombre"
+          placeholder="nombre"
+          class="form-control"
+          type="text"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <input
+          id="email"
+          name="email"
+          placeholder="email"
+          class="form-control"
+          type="email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <input
+          id="password"
+          name="password"
+          placeholder="password"
+          class="form-control"
+          type="password"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <input class="btn btn-success my-3" type="submit" value="Login" />
+      </div>
+    </form> --}}
+    <hr />
+    <div class="text-left mt-5">
+      <button
+        class="btn btn-primary my-3"
+        onclick="location.href = '/registro'"
+      >Ir al Registro</button>
+    </div>
+  </div>
+</div>
