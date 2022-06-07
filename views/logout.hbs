@@ -1,10 +1,10 @@
 <div class="container my-5">
     <div class="jumbotron">
         <div class="container text-center bg-info p-2">
-            <h4>Hasta luego, {{nombre}} </h4>
+            <h4>Hasta luego, {{nombre}} {{usuario.username}} {{user.username}}</h4>
             <h4><i>Le esperamos nuevamente</i></h4>
 
-            <button class="btn btn-danger my-4" onclick="location.href='/login'">LOGIN</button>
+            <button class="btn btn-danger my-4" onclick="location.href='/login'">volver</button>
         </div>
     </div>
 </div>
@@ -12,5 +12,5 @@
 <script>
     setTimeout(()=> {
         location.href = '/login '
-    } , 600000)
+    } , 5000)
 </script>
