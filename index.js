@@ -4,13 +4,12 @@ import cookieParser from "cookie-parser";
 import path from "path";
 import handlebars from "express-handlebars";
 import passport from "passport";
-import { PORT } from "./src/utils/port.js";
-import { routerInfo, routerHandlebars } from "./src/routes/routes.js";
-
 import dotenv from "dotenv";
 dotenv.config();
 import './src/database.js';
-import { login, signup } from "./src/middlewares/passportLocal.js";
+import { PORT } from "./src/utils/port.js";
+import { routerInfo, routerHandlebars } from "./src/routes/routes.js";
+import { loginStrategy, signupStrategy } from "./src/middlewares/passportLocal.js";
 
 const app = express();
 
@@ -28,8 +27,8 @@ app.use(session({
   }
 }))
 
-passport.use('login', login);
-passport.use('signup', signup)
+passport.use('login', loginStrategy);
+passport.use('signup', signupStrategy)
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,13 +45,13 @@ app.set('view engine', 'hbs')
 app.set('views', './views')
 
 /*============================[Rutas Info]============================*/
-app.use('/', routerInfo)
+app.use('/api', routerInfo)
 /*============================[Rutas Views]============================*/
 app.use('/', routerHandlebars)
 
 /*============================[Servidor]============================*/
 app.listen(PORT, () => {
-  console.log(`ServerPassport corriendo en Puerto ${PORT} en http://localhost:${PORT}`);
+  console.log(`Server corriendo en Puerto ${PORT}: http://localhost:${PORT}`);
 });
 app.on('error', (err) => {
   console.log(err);
