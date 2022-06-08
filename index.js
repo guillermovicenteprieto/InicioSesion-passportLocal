@@ -22,9 +22,9 @@ app.use(session({
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: {
-    maxAge: 600000,
-  }
+  // cookie: {
+  //   maxAge: 600000,
+  // }
 }))
 
 passport.use('login', loginStrategy);

@@ -12,7 +12,6 @@ export const loginStrategy = new Strategy(
             if (err) return done(err);
             if (!user) return done(null, false);
             if (!isValidPassword(user, password)) return done(null, false);
-
             return done(null, user);
         });
     })

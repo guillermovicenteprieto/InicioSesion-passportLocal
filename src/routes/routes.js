@@ -26,12 +26,12 @@ routerInfo
   .get('/random', (req, res) => {
     //const product = listProducts[Math.floor(Math.random() * listProducts.length)]
     //res.json(product)
-    let cant = req.query.cant || 1000000;
+    let cant = req.query.cant || 1000000000
     let passCant = ['' + cant + '']
-    const child = fork('./src/utils/random.js');
+    const child = fork('./randomApi.js');
     child.send(passCant);
     child.on('message', (operation) => {
-      res.json(operation);
+      res.json({operation});
     })
   })
 
