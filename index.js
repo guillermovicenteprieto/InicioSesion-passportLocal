@@ -6,7 +6,8 @@ import handlebars from "express-handlebars";
 import passport from "passport";
 import dotenv from "dotenv";
 dotenv.config();
-import './src/database.js';
+//import './src/database.js';
+import mongoose from "mongoose";
 import { PORT } from "./src/utils/port.js";
 import { routerInfo, routerHandlebars } from "./src/routes/routes.js";
 import { loginStrategy, signupStrategy } from "./src/middlewares/passportLocal.js";
@@ -48,6 +49,9 @@ app.set('views', './views')
 app.use('/api', routerInfo)
 /*============================[Rutas Views]============================*/
 app.use('/', routerHandlebars)
+
+
+mongoose.connect(process.env.MONGO);
 
 /*============================[Servidor]============================*/
 app.listen(PORT, () => {
